@@ -777,11 +777,9 @@ def main():
 
 def create_main_with_hotreload() -> None:
     with open(
-        os.path.join(path_to_project, "main.py"), encoding="utf-8"
-    ) as main_file:
-        main_code = ""
-        for string in main_file.readlines():
-            main_code += f"# {string}"
+            os.path.join(path_to_project, "main.py"), encoding="utf-8"
+        ) as main_file:
+        main_code = "".join(f"# {string}" for string in main_file)
     with open(
         os.path.join(path_to_project, "main.py"), "w", encoding="utf-8"
     ) as main_file:
@@ -1171,9 +1169,7 @@ def check_databases() -> None:
 
 def chek_camel_case_name_project(name_project) -> Union[bool, list]:
     result = re.findall("[A-Z][a-z]*", name_project)
-    if len(result) == 1:
-        return False
-    return result
+    return False if len(result) == 1 else result
 
 
 def create_argument_parser() -> ArgumentParserWithHelp:
